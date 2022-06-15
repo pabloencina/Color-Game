@@ -1,0 +1,94 @@
+.square{
+    display: inline-block;
+    width: 30%;
+    padding-bottom: 30%;
+    background-color: #fbeedf;
+    margin: 1%;
+    border-radius: 10%;
+    border: 2px solid #fbeedf;
+    cursor: pointer;
+}
+
+.container{
+    width: 100px;
+}
+
+body{
+    background-color: #b79ff1;
+}
+
+#title{
+    height: 100px;
+    color: #fbeedf;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    display: flex;
+}
+
+#message{
+    text-align: center;
+    height: 10px;
+    background-color: #a2debd;
+    padding: 30px;
+    font-weight: bold;
+    color: #fbeedf;
+    justify-content: center;
+    align-items: center;
+}
+
+#stripe{
+    width: 100%;
+    background-color: #a2debd;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    display: flex;
+}
+
+.selected{
+    text-align: center;
+    height: 10px;
+    background-color: #a2debd;
+    padding: 30px;
+    border: 1px solid #a2debd;
+    font-weight: bold;
+    color: #fbeedf;
+    justify-content: center;
+    align-items: center;
+}
+
+#reset{
+    text-align: center;
+    background-color: #a2debd;
+    height: 30px;
+    padding: 30px;
+    border: 1px solid #a2debd;
+    font-weight: bold;
+    color: #fbeedf;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#easy:hover{
+    background-color:#fbeedf ;
+    color: #a2debd;
+    cursor: pointer;
+    font-size: large;
+    font-weight: normal;
+}
+
+#hard:hover{
+    background-color:#fbeedf ;
+    color: #a2debd;
+    cursor: pointer;
+    font-size: large;
+    font-weight: normal;
+}
+
+#reset:hover{
+    background-color:#fbeedf ;
+    color: #a2debd;
+    font-size: large;
+    font-weight: normal;
+}
