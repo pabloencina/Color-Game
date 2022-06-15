@@ -1,25 +1,26 @@
 function main() {
   const colorQ = 6;
   const colorP = 3;
-  const colors = getRandomColorArray(colorQ);
+  const colors = getRandomColorArray(colorP);
   //
-  const squares = document.querySelectorAll(".square");
+  const container = document.getElementById("container");
+  // const squares = document.querySelectorAll(".square");
+  const squares = createSquares(container, colorP);
   //
   const colorDisplay = document.getElementById("colorDisplay");
   const message = document.getElementById("message");
   const reset = document.getElementById("reset");
   const title = document.getElementById("title");
-  const container = document.getElementById("container");
   const easy = document.getElementById("easy");
   const hard = document.getElementById("hard");
 
   const pickedColor = colors[Math.floor(Math.random() * colors.length)];
   colorDisplay.innerHTML = pickedColor;
-  putColorInSquare();
+  putColorInSquare(squares, colors);
   addEventOnClickToSquares(squares, colors);
 
   reset.addEventListener("click", () => {
-   // main()
+    // main()
   });
 
   easy.addEventListener("click", () => {
@@ -30,10 +31,20 @@ function main() {
     buttonHard();
   });
 
-  function putColorInSquare() {
+  function createSquares(parentElement, number) {
+    let arrDiv = [];
+    for (let i = 0; i < number; i++) {
+      const element = document.createElement("div");
+      element.classList.add("square");
+      parentElement.appendChild(element);
+      arrDiv.push(element);
+    }
+    return arrDiv;
+  }
+
+  function putColorInSquare(squares, colors) {
     for (let i = 0; i < squares.length; i++) {
       squares[i].style.backgroundColor = colors[i];
-      //container.innerHTML += `<div id="square">${squares[i].style.backgroundColor = colors[i]}</div>`
     }
   }
 
@@ -78,9 +89,9 @@ function main() {
   function buttonEasy() {
     getRandomColorArray(colorP);
   }
-  
+
   function buttonHard() {
-    getRandomColorArray(colorQ)
+    getRandomColorArray(colorQ);
   }
 
   function getRandomColorArray(n) {
