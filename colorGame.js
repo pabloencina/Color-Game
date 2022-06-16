@@ -5,28 +5,29 @@ function main() {
   const title = document.getElementById("title");
   const easy = document.getElementById("easy");
   const hard = document.getElementById("hard");
-  
+
   function createGame(squareQuantity) {
     const colors = getRandomColorArray(squareQuantity);
     const container = document.getElementById("container");
-    container.innerHTML = ""
+    container.innerHTML = "";
     const squares = createSquares(container, squareQuantity);
+    console.log(squares);
     const pickedColor = colors[Math.floor(Math.random() * colors.length)];
     colorDisplay.innerHTML = pickedColor;
     putColorInSquare(squares, colors);
-    addEventOnClickToSquares(squares, colors,pickedColor);
-  }
-
-  function stopEvents() {
-    squareOnClick(squareElement, color, pickedColor)
+    addEventOnClickToSquares(squares, colors, pickedColor);
   }
 
   reset.addEventListener("click", () => {
-     //main()
+    reset.innerHTML = "New Colors";
+    message.innerHTML = "";
+    title.style.color = "#fbeedf";
+    reset.style.backgroundColor = "";
+    createGame(6);
   });
 
   easy.addEventListener("click", () => {
-    createGame(3) 
+    createGame(3);
   });
 
   hard.addEventListener("click", () => {
@@ -50,10 +51,23 @@ function main() {
     }
   }
 
-  function addEventOnClickToSquares(squareElements, colors,pickedColor) {
+  function addEventOnClickToSquares(squareElements, colors, pickedColor) {
     for (let i = 0; i < squareElements.length; i++) {
       squareElements[i].addEventListener("click", () => {
         squareOnClick(squareElements[i], colors[i], pickedColor);
+        squareElements[i].style.border = "";
+      });
+      dynamicSquare(squareElements)
+    }
+  }
+
+  function dynamicSquare(squareElements) {
+    for (let i = 0; i < squareElements.length; i++) {
+      squareElements[i].addEventListener("mouseover", () => {
+        squareElements[i].style.border = "4px solid #fbeedf";
+      });
+      squareElements[i].addEventListener("mouseout", () => {
+        squareElements[i].style.border = "2px solid #fbeedf";
       });
     }
   }
@@ -63,7 +77,9 @@ function main() {
       title.style.color = color;
       message.innerHTML = "CONGRATULATIONS!!!";
       message.style.color = color;
-      reset.innerHTML = "PLAY AGAIN??";
+      reset.innerHTML = "PLAY AGAIN ??";
+      reset.style.background = "linear-gradient(#b79ff1, #fbeedf)";
+      container.innerHTML = "";
     } else {
       squareElement.style.backgroundColor = "#b79ff1";
       squareElement.style.border = "#b79ff1";
