@@ -1,39 +1,41 @@
 function main() {
-  const colorQ = 6;
-  const colorP = 3;
-  const colors = getRandomColorArray(colorP);
-  //
-  const container = document.getElementById("container");
-  // const squares = document.querySelectorAll(".square");
-  const squares = createSquares(container, colorP);
-  //
   const colorDisplay = document.getElementById("colorDisplay");
   const message = document.getElementById("message");
   const reset = document.getElementById("reset");
   const title = document.getElementById("title");
   const easy = document.getElementById("easy");
   const hard = document.getElementById("hard");
+  
+  function createGame(squareQuantity) {
+    const colors = getRandomColorArray(squareQuantity);
+    const container = document.getElementById("container");
+    container.innerHTML = ""
+    const squares = createSquares(container, squareQuantity);
+    const pickedColor = colors[Math.floor(Math.random() * colors.length)];
+    colorDisplay.innerHTML = pickedColor;
+    putColorInSquare(squares, colors);
+    addEventOnClickToSquares(squares, colors,pickedColor);
+  }
 
-  const pickedColor = colors[Math.floor(Math.random() * colors.length)];
-  colorDisplay.innerHTML = pickedColor;
-  putColorInSquare(squares, colors);
-  addEventOnClickToSquares(squares, colors);
+  function stopEvents() {
+    squareOnClick(squareElement, color, pickedColor)
+  }
 
   reset.addEventListener("click", () => {
-    // main()
+     //main()
   });
 
   easy.addEventListener("click", () => {
-    buttonEasy();
+    createGame(3) 
   });
 
   hard.addEventListener("click", () => {
-    buttonHard();
+    createGame(6);
   });
 
-  function createSquares(parentElement, number) {
+  function createSquares(parentElement, squareQuantity) {
     let arrDiv = [];
-    for (let i = 0; i < number; i++) {
+    for (let i = 0; i < squareQuantity; i++) {
       const element = document.createElement("div");
       element.classList.add("square");
       parentElement.appendChild(element);
@@ -48,15 +50,15 @@ function main() {
     }
   }
 
-  function addEventOnClickToSquares(squareElements, colors) {
+  function addEventOnClickToSquares(squareElements, colors,pickedColor) {
     for (let i = 0; i < squareElements.length; i++) {
       squareElements[i].addEventListener("click", () => {
-        squareOnClick(squareElements[i], colors[i]);
+        squareOnClick(squareElements[i], colors[i], pickedColor);
       });
     }
   }
 
-  function squareOnClick(squareElement, color) {
+  function squareOnClick(squareElement, color, pickedColor) {
     if (color === pickedColor) {
       title.style.color = color;
       message.innerHTML = "CONGRATULATIONS!!!";
@@ -86,17 +88,9 @@ function main() {
     );
   }
 
-  function buttonEasy() {
-    getRandomColorArray(colorP);
-  }
-
-  function buttonHard() {
-    getRandomColorArray(colorQ);
-  }
-
-  function getRandomColorArray(n) {
+  function getRandomColorArray(squareQuantity) {
     const arrColors = [];
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < squareQuantity; i++) {
       const color = generateColorString();
       arrColors.push(color);
     }
