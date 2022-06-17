@@ -4,7 +4,9 @@ function main() {
   const reset = document.getElementById("reset");
   const title = document.getElementById("title");
   const easy = document.getElementById("easy");
+  const normal = document.getElementById("normal");
   const hard = document.getElementById("hard");
+  const count = document.getElementById("count");
 
   function createGame(squareQuantity) {
     const colors = getRandomColorArray(squareQuantity);
@@ -23,15 +25,20 @@ function main() {
     message.innerHTML = "";
     title.style.color = "#fbeedf";
     reset.style.backgroundColor = "";
-    createGame(6);
+    createGame(9);
+    count.innerHTML = 0;
   });
 
   easy.addEventListener("click", () => {
     createGame(3);
   });
 
-  hard.addEventListener("click", () => {
+  normal.addEventListener("click", () => {
     createGame(6);
+  });
+
+  hard.addEventListener("click", () => {
+    createGame(9);
   });
 
   function createSquares(parentElement, squareQuantity) {
@@ -51,20 +58,25 @@ function main() {
     }
   }
 
+  function clickCounter() {
+    
+  }
+
   function addEventOnClickToSquares(squareElements, colors, pickedColor) {
+    let countClick = 0;
     for (let i = 0; i < squareElements.length; i++) {
       squareElements[i].addEventListener("click", () => {
         squareOnClick(squareElements[i], colors[i], pickedColor);
-        squareElements[i].style.border = "";
+        count.innerHTML = countClick += 1;
       });
-      dynamicSquare(squareElements)
+      dynamicSquare(squareElements);
     }
   }
 
   function dynamicSquare(squareElements) {
     for (let i = 0; i < squareElements.length; i++) {
       squareElements[i].addEventListener("mouseover", () => {
-        squareElements[i].style.border = "4px solid #fbeedf";
+        squareElements[i].style.border = "5px solid #fbeedf";
       });
       squareElements[i].addEventListener("mouseout", () => {
         squareElements[i].style.border = "2px solid #fbeedf";
@@ -74,17 +86,15 @@ function main() {
 
   function squareOnClick(squareElement, color, pickedColor) {
     if (color === pickedColor) {
-      title.style.color = color;
-      message.innerHTML = "CONGRATULATIONS!!!";
-      message.style.color = color;
-      reset.innerHTML = "PLAY AGAIN ??";
-      reset.style.background = "linear-gradient(#b79ff1, #fbeedf)";
+      message.innerHTML = "congratulations!!!";
+      reset.innerHTML = "play again?";
+      count.innerHTML = 0;
       container.innerHTML = "";
     } else {
-      squareElement.style.backgroundColor = "#b79ff1";
+      squareElement.style.backgroundColor = "#dfcdbf";
       squareElement.style.border = "#b79ff1";
-      message.innerHTML = "TRY AGAIN!!!";
-      reset.innerHTML = "New Colors";
+      message.innerHTML = "try again!!!";
+      reset.innerHTML = "new colors";
     }
   }
 
