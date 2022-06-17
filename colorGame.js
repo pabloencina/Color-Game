@@ -13,7 +13,6 @@ function main() {
     const container = document.getElementById("container");
     container.innerHTML = "";
     const squares = createSquares(container, squareQuantity);
-    console.log(squares);
     const pickedColor = colors[Math.floor(Math.random() * colors.length)];
     colorDisplay.innerHTML = pickedColor;
     putColorInSquare(squares, colors);
@@ -31,14 +30,17 @@ function main() {
 
   easy.addEventListener("click", () => {
     createGame(3);
+    count.innerHTML = 0;
   });
 
   normal.addEventListener("click", () => {
     createGame(6);
+    count.innerHTML = 0;
   });
 
   hard.addEventListener("click", () => {
     createGame(9);
+    count.innerHTML = 0;
   });
 
   function createSquares(parentElement, squareQuantity) {
@@ -58,16 +60,38 @@ function main() {
     }
   }
 
-  function clickCounter() {
-    
+  let countClick = 0;
+
+  function clickCounter(val) {
+    count.innerHTML = val;
   }
 
+  function increment(color,pickedColor) {
+    countClick += 1;
+    clickCounter(countClick);
+    if (color === pickedColor ) {
+      let point = getPlayerPoints(countClick)
+      message.innerHTML = `congratulations, you got ${point} points!!!`
+    }
+  }
+
+function getPlayerPoints(countClick){
+  if (countClick <= 2){
+    return 1000
+  }else if(countClick > 2 && countClick <= 5){
+    return 700
+  }else if(countClick > 5 && countClick <= 9){
+    return 200
+  }
+   
+}
+
   function addEventOnClickToSquares(squareElements, colors, pickedColor) {
-    let countClick = 0;
+    countClick = 0;
     for (let i = 0; i < squareElements.length; i++) {
       squareElements[i].addEventListener("click", () => {
         squareOnClick(squareElements[i], colors[i], pickedColor);
-        count.innerHTML = countClick += 1;
+        increment(colors[i],pickedColor);
       });
       dynamicSquare(squareElements);
     }
