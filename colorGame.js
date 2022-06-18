@@ -7,6 +7,7 @@ function main() {
   const normal = document.getElementById("normal");
   const hard = document.getElementById("hard");
   const count = document.getElementById("count");
+  let dificulty;
 
   function createGame(squareQuantity) {
     const colors = getRandomColorArray(squareQuantity);
@@ -31,16 +32,19 @@ function main() {
   easy.addEventListener("click", () => {
     createGame(3);
     count.innerHTML = 0;
+    dificulty = 0;
   });
 
   normal.addEventListener("click", () => {
     createGame(6);
     count.innerHTML = 0;
+    dificulty = 1;
   });
 
   hard.addEventListener("click", () => {
     createGame(9);
     count.innerHTML = 0;
+    dificulty = 2;
   });
 
   function createSquares(parentElement, squareQuantity) {
@@ -66,32 +70,57 @@ function main() {
     count.innerHTML = val;
   }
 
-  function increment(color,pickedColor) {
+  function increment(color, pickedColor) {
     countClick += 1;
     clickCounter(countClick);
-    if (color === pickedColor ) {
-      let point = getPlayerPoints(countClick)
-      message.innerHTML = `congratulations, you got ${point} points!!!`
+    colorMatching(color, pickedColor);
+  }
+
+  function colorMatching(color, pickedColor) {
+    if (color === pickedColor) {
+      let point = getPlayerPoints(countClick);
+      message.innerHTML = `congratulations, you got ${point} points!!!`;
     }
   }
 
-function getPlayerPoints(countClick){
-  if (countClick <= 2){
-    return 1000
-  }else if(countClick > 2 && countClick <= 5){
-    return 700
-  }else if(countClick > 5 && countClick <= 9){
-    return 200
+  function getPlayerPoints(countClick) {
+    if(dificulty === 0 && countClick === 1){
+      return 500
+    }else if(dificulty === 0 && countClick === 2){
+      return 400
+    }else if(dificulty === 0 && countClick === 3){
+      return 100
+    }
+
+    if(dificulty === 1 && countClick === 1){
+      return 700
+    }else if(dificulty === 1 && countClick === 2){
+      return 600
+    }else if(dificulty === 1 && countClick === 3){
+      return 500
+    }else if(dificulty === 1 && countClick === 4){
+      return 400
+    }else if(dificulty === 1 && countClick === 5){
+      return 300
+    }else if(dificulty === 1 && countClick === 6){
+      return 100
+    }
+
+    if (countClick <= 2 && dificulty === 2) {
+      return 1000;
+    } else if (countClick > 2 && countClick <= 5 && dificulty === 2) {
+      return 700;
+    } else if (countClick > 5 && countClick <= 9 && dificulty === 2) {
+      return 200;
+    }
   }
-   
-}
 
   function addEventOnClickToSquares(squareElements, colors, pickedColor) {
     countClick = 0;
     for (let i = 0; i < squareElements.length; i++) {
       squareElements[i].addEventListener("click", () => {
         squareOnClick(squareElements[i], colors[i], pickedColor);
-        increment(colors[i],pickedColor);
+        increment(colors[i], pickedColor);
       });
       dynamicSquare(squareElements);
     }
